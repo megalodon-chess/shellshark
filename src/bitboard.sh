@@ -34,3 +34,26 @@ popcnt() {
     done
     return $count
 }
+
+set_bit() {
+    set_bit_r=$(( $1 | (1<<$2) ))
+}
+
+unset_bit() {
+    unset_bit_r=$(( $1 & (~(1<<$2)) ))
+}
+
+in_board() {
+    return $(( (0 <= $1) & ($1 < 8) & (0 <= $2) & ($2 < 8) ))
+}
+
+first_bit() {
+    for i in {0..63}
+    do
+        local on=$(( ((1<<$i) & $1) ))
+        if [[ $on != 0 ]]
+        then
+            return $i
+        fi
+    done
+}
