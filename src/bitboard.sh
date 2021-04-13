@@ -19,5 +19,18 @@
 
 
 bit() {
-    return $((((1<<$2) & $1) != 0))
+    return $(( ((1<<$2) & $1) != 0 ))
+}
+
+popcnt() {
+    local count=0
+    for i in {0..63}
+    do
+        local on=$(( ((1<<$i) & $1) ))
+        if [[ $on != 0 ]]
+        then
+            local count=$(($count+1))
+        fi
+    done
+    return $count
 }
